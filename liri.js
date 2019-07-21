@@ -125,3 +125,9 @@ var choose = function (casePicked, functionPicked) {
             console.log("LIRI doesn't know that");
     }
 };
+
+var trigger = function(input1, input2) {
+    choose(input1, input2);
+  };
+
+// trigger(process.arg[2], process.argv.slice(3).join(" "));
