@@ -59,7 +59,7 @@ var bandSearch = function (artist) {
             }
 
             console.log("There are the next concerts of " + artist + ":");
-            console.log(data);
+            // console.log(data);
             for (var i = 0; i < data.length; i++) {
                 console.log("City: " + data[i].venue.city);
                 console.log("Country/Region: " + data[i].venue.country || data[i].venue.region);
@@ -81,7 +81,7 @@ var movieSearch = function(movie) {
     axios.get(omdbURL).then(
         function (response) {
             var data = response.data;
-            console.log(data);
+            // console.log(data);
             console.log("Movie Title: " + data.Title);
             console.log("Year the movie came out: " + data.Year);
             console.log("IMDB Rating: " + data.imdbRating);
