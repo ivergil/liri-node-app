@@ -18,10 +18,8 @@ var artistSearch = function (artist) {
 };
 
 var spotifySong = function (song) {
-    if (song == undefined) {
-        song = "The Sign";
-    };
-    console.log(song)
+    
+    console.log("Searching for: " + song);
     spotify
         .search({
             type: "track",
@@ -77,11 +75,8 @@ var bandSearch = function (artist) {
 };
 
 var movieSearch = function(movie) {
-    if (movie === undefined) {
-        movie = "Mr Nobody";
-        console.log(movie);
-    }
-    console.log (movie)
+    console.log("Searching for: " + movie);
+    
     var omdbURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=full&tomatoes=true&apikey=da2b29a9";
     axios.get(omdbURL).then(
         function (response) {
@@ -134,7 +129,16 @@ var choose = function (casePicked, functionPicked) {
 };
 
 var trigger = function(input1, input2) {
-    choose(input1, input2);
+    if (input1 === "movie-this" && input2 === ""){
+        input2 = "Mr. Nobody";
+        choose(input1, input2);
+    }else if (input1 === "spotify-this-song" && input2 === ""){
+        input2 = "The Sing";
+        choose(input1, input2);
+    }else{
+        choose(input1, input2);
+    }
+    
   };
 
-trigger(process.argv[2], process.argv.slice(3).join(" "));
+trigger(process.argv[2], process.argv.slice(3).join(""));
