@@ -30,7 +30,7 @@ var spotifySong = function (song) {
 
             for (var i = 0; i < songs.length; i++) {
                 // console.log(i);
-                console.log("Artist(s): " + songs[i].artists.map(getArtistNames));
+                console.log("Artist(s): " + songs[i].artists.map(artistSearch));
                 console.log("Song name: " + songs[i].name);
                 console.log("Preview song: " + songs[i].preview_url);
                 console.log("Album name: " + songs[i].album.name);
@@ -92,16 +92,36 @@ var movieSearch = function (movie) {
     );
 };
 
-var doWhatItSays = function() {
-    fs.readFile("random.txt", "utf8", function(error, data) {
-      console.log(data);
-  
-      var newArray = data.split(",");
-  
-      if (newArray.length === 2) {
-        pick(newArray[0], newArray[1]);
-      } else if (newArray.length === 1) {
-        pick(newArray[0]);
-      }
+var doWhatItSays = function () {
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        console.log(data);
+
+        var newArray = data.split(",");
+
+        if (newArray.length === 2) {
+            pick(newArray[0], newArray[1]);
+        } else if (newArray.length === 1) {
+            pick(newArray[0]);
+        }
     });
-  };
+};
+
+var choose = function (casePicked, functionPicked) {
+    switch (casePicked) {
+
+        case "spotify-this-song":
+            spotifySong(functionPicked);
+            break;
+        case "concert-this":
+            bandSearch(functionPicked);
+            break;
+        case "movie-this":
+            movieSearch(functionPicked);
+            break;
+        case "do-what-it-says":
+            doWhatItSays();
+            break;
+        default:
+            console.log("LIRI doesn't know that");
+    }
+};
