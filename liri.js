@@ -13,7 +13,7 @@ var fs = require("fs");
 var spotify = new Spotify(keys.spotify);
 
 
-var userArtist = function (artist) {
+var artistSearch = function (artist) {
     return artist.name;
 };
 
@@ -44,31 +44,51 @@ var spotifySong = function (song) {
         });
 };
 
-var userBands = function (artist) {
-    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+var bandSearch = function (artist) {
+    var axiosURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
-    axios.get(queryURL)
+    axios.get(axiosURL)
         .then(function (response) {
             var data = response.data
             // handle success
-            if (data.length === 0){
+            if (data.length === 0) {
                 console.log("Please check your Artist: " + artist + " No results found")
                 return;
             }
 
             console.log("There are the next concerts of " + artist + ":");
 
-            for (var i = 0; i < data.length; i++){
+            for (var i = 0; i < data.length; i++) {
                 console.log("City: " + data[i].venue.city);
                 console.log("Region/Country: " + data[i].venue.region || data[i].venue.country);
                 console.log("Place: " + data[i].venue.name);
                 console.log("Time :" + moment(data[i].venue.datetime).format("MM/DD/YYY"));
-
             }
-            
         })
         .catch(function (error) {
             // handle error
             console.log(error);
         });
+};
+
+var movieSearch = function (movie) {
+    if (movie === undefined) {
+        movie = "Mr. Nobody";
+    }
+    var omdbURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=full&tomatoes=true&apikey=da2b29a9";
+    axios.get(omdbURL).then(
+        function (response) {
+            var data = response.data;
+
+            console.log("Movie Title: " + data.Title);
+            console.log("Year: " + data.Year);
+            console.log("Movie Rated: " + data.Rated);
+            console.log("IMDB Rating: " + data.imdbRating);
+            console.log("Country: " + data.Country);
+            console.log("Language: " + data.Language);
+            console.log("Plot: " + data.Plot);
+            console.log("Actors: " + data.Actors);
+            console.log("Rotten Tomatoes Rating: " + jsonData.Ratings[1].Value);
+        }
+    );
 };
