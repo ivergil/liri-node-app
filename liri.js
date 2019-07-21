@@ -96,14 +96,14 @@ var movieSearch = function(movie) {
 
 var doWhatItSays = function () {
     fs.readFile("random.txt", "utf8", function (error, data) {
-        console.log(data);
+        //console.log(data);
 
         var newArray = data.split(",");
 
         if (newArray.length === 2) {
-            pick(newArray[0], newArray[1]);
+            choose(newArray[0], newArray[1]);
         } else if (newArray.length === 1) {
-            pick(newArray[0]);
+            choose(newArray[0]);
         }
     });
 };
