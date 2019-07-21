@@ -1,3 +1,4 @@
+// Exports the Spotify APIs
 console.log('this is loaded');
 
 exports.spotify = {
