@@ -141,4 +141,4 @@ var trigger = function(input1, input2) {
     
   };
 
-trigger(process.argv[2], process.argv.slice(3).join(""));
+trigger(process.argv[2], process.argv.slice(3).join(" "));
