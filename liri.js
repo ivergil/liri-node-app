@@ -17,7 +17,7 @@ var userArtist = function (artist) {
     return artist.name;
 };
 
-var userSong = function (song) {
+var spotifySong = function (song) {
     if (song === undefined) {
         song === "Try it again"
     }
@@ -34,12 +34,41 @@ var userSong = function (song) {
                 console.log("Song name: " + songs[i].name);
                 console.log("Preview song: " + songs[i].preview_url);
                 console.log("Album name: " + songs[i].album.name);
-                console.log("-----------------------------------");
+                console.log("*******************************");
             }
 
-            console.log(data);
+            // console.log(data);
         })
         .catch(function (err) {
             console.log(err);
+        });
+};
+
+var userBands = function (artist) {
+    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+
+    axios.get(queryURL)
+        .then(function (response) {
+            var data = response.data
+            // handle success
+            if (data.length === 0){
+                console.log("Please check your Artist: " + artist + " No results found")
+                return;
+            }
+
+            console.log("There are the next concerts of " + artist + ":");
+
+            for (var i = 0; i < data.length; i++){
+                console.log("City: " + data[i].venue.city);
+                console.log("Region/Country: " + data[i].venue.region || data[i].venue.country);
+                console.log("Place: " + data[i].venue.name);
+                console.log("Time :" + moment(data[i].venue.datetime).format("MM/DD/YYY"));
+
+            }
+            
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
         });
 };
