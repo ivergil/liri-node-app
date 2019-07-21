@@ -18,14 +18,20 @@ var artistSearch = function (artist) {
 };
 
 var spotifySong = function (song) {
-    if (song === undefined) {
-        song === "The Sign"
-    }
-
+    if (song == undefined) {
+        song = "The Sign";
+    };
+    console.log(song)
     spotify
-        .search({ type: 'track', query: song })
-        .then(function (response) {
-            var data = response.data;
+        .search({
+            type: "track",
+            query: song
+          },
+          function(err, data) {
+            if (err) {
+              console.log("Error occurred: " + err);
+              return;
+            }
             var songs = data.tracks.items;
 
             for (var i = 0; i < songs.length; i++) {
@@ -39,9 +45,7 @@ var spotifySong = function (song) {
 
             // console.log(data);
         })
-        .catch(function (err) {
-            console.log(err);
-        });
+        
 };
 
 var bandSearch = function (artist) {
@@ -57,12 +61,13 @@ var bandSearch = function (artist) {
             }
 
             console.log("There are the next concerts of " + artist + ":");
-
+            console.log(data);
             for (var i = 0; i < data.length; i++) {
                 console.log("City: " + data[i].venue.city);
-                console.log("Region/Country: " + data[i].venue.region || data[i].venue.country);
+                console.log("Country/Region: " + data[i].venue.country || data[i].venue.region);
                 console.log("Place: " + data[i].venue.name);
-                console.log("Time :" + moment(data[i].venue.datetime).format("MM/DD/YYY"));
+                console.log("Time :" + moment(data[i].datetime).format("MM/DD/YYYY"));
+                console.log("*******************************");
             }
         })
         .catch(function (error) {
@@ -71,19 +76,21 @@ var bandSearch = function (artist) {
         });
 };
 
-var movieSearch = function (movie) {
+var movieSearch = function(movie) {
     if (movie === undefined) {
-        movie = "Mr. Nobody";
+        movie = "Mr Nobody";
+        console.log(movie);
     }
+    console.log (movie)
     var omdbURL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=full&tomatoes=true&apikey=da2b29a9";
     axios.get(omdbURL).then(
         function (response) {
             var data = response.data;
-
+            console.log(data);
             console.log("Movie Title: " + data.Title);
             console.log("Year the movie came out: " + data.Year);
             console.log("IMDB Rating: " + data.imdbRating);
-            console.log("Rotten Tomatoes Rating: " + data[i].Ratings[1].Value);
+            console.log("Rotten Tomatoes Rating: " + data.tomatoRotten);
             console.log("Country was produced: " + data.Country);
             console.log("Language of the movie: " + data.Language);
             console.log("Plot of the movie: " + data.Plot);
@@ -130,4 +137,4 @@ var trigger = function(input1, input2) {
     choose(input1, input2);
   };
 
-// trigger(process.arg[2], process.argv.slice(3).join(" "));
+trigger(process.argv[2], process.argv.slice(3).join(" "));
