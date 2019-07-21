@@ -19,7 +19,7 @@ var artistSearch = function (artist) {
 
 var spotifySong = function (song) {
     if (song === undefined) {
-        song === "Try it again"
+        song === "The Sign"
     }
 
     spotify
@@ -81,14 +81,27 @@ var movieSearch = function (movie) {
             var data = response.data;
 
             console.log("Movie Title: " + data.Title);
-            console.log("Year: " + data.Year);
-            console.log("Movie Rated: " + data.Rated);
+            console.log("Year the movie came out: " + data.Year);
             console.log("IMDB Rating: " + data.imdbRating);
-            console.log("Country: " + data.Country);
-            console.log("Language: " + data.Language);
-            console.log("Plot: " + data.Plot);
+            console.log("Rotten Tomatoes Rating: " + data[i].Ratings[1].Value);
+            console.log("Country was produced: " + data.Country);
+            console.log("Language of the movie: " + data.Language);
+            console.log("Plot of the movie: " + data.Plot);
             console.log("Actors: " + data.Actors);
-            console.log("Rotten Tomatoes Rating: " + jsonData.Ratings[1].Value);
         }
     );
 };
+
+var doWhatItSays = function() {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+      console.log(data);
+  
+      var newArray = data.split(",");
+  
+      if (newArray.length === 2) {
+        pick(newArray[0], newArray[1]);
+      } else if (newArray.length === 1) {
+        pick(newArray[0]);
+      }
+    });
+  };
